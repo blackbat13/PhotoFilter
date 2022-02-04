@@ -1,5 +1,17 @@
 # Simple Photo Filter Library
 
+# Usage
+
+```python
+from PIL import Image
+from photo_filter import Filterizer, SimpleFilter
+
+
+image = Image.open("chameleon.jpg")
+Filterizer.apply(image, SimpleFilter.negative)
+image.save("filterized.jpg")
+```
+
 # Examples
 
 ## Original photo
