@@ -3,18 +3,22 @@ from typing import Callable, Tuple
 
 
 class Filterizer:
+    """Filterizer class for applying filters on photos"""
+
     @staticmethod
     def apply(image: Image, simple_filter: Callable[[Tuple[int, ...]], Tuple[int, ...]]):
-        width = image.size[0]
-        height = image.size[1]
-
-        for y in range(height):
-            for x in range(width):
-                color = image.getpixel((x, y))
-                image.putpixel((x, y), simple_filter(color))
+        """
+        Applies simple filter on a image
+        :param image: image to modify
+        :param simple_filter: filter to apply
+        :return: None
+        """
+        image.putdata(list(map(simple_filter, image.getdata())))
 
 
 class SimpleFilter:
+    """Collection of simple filters"""
+
     @staticmethod
     def atmosphere(color: Tuple[int, ...]) -> Tuple[int, ...]:
         return (color[1] + color[2]) // 2, (color[0] + color[2]) // 2, (color[0] + color[1]) // 2
@@ -57,8 +61,9 @@ class SimpleFilter:
         return grey // 3, grey, min(grey * 3, 255)
 
 
-
 class GrayscaleFilter:
+    """Collection of grayscale filters"""
+
     @staticmethod
     def average(color: Tuple[int, ...]) -> Tuple[int, ...]:
         grey = sum(color) // 3
