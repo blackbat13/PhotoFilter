@@ -7,11 +7,11 @@ class Filterizer:
 
     @staticmethod
     def apply(image: Image, simple_filter: Callable[[Tuple[int, ...]], Tuple[int, ...]]):
-        """
-        Applies simple filter on a image
-        :param image: image to modify
-        :param simple_filter: filter to apply
-        :return: None
+        """Applies simple filter on a image
+
+        Args:
+            image (Image): image to modify
+            simple_filter (Callable[[Tuple[int, ...]], Tuple[int, ...]]): filter to apply
         """
         image.putdata(list(map(simple_filter, image.getdata())))
 
@@ -125,12 +125,12 @@ if __name__ == "__main__":
         (GrayscaleFilter.red_channel, "red_channel"),
     ]
 
-    for photo_filter in simple_filters:
+    for photo_filter, photo_name in simple_filters:
         image = Image.open("chameleon.jpg")
-        Filterizer.apply(image, photo_filter[0])
-        image.save(f"filterized/simple/{photo_filter[1]}.jpg")
+        Filterizer.apply(image, photo_filter)
+        image.save(f"filterized/simple/{photo_name}.jpg")
 
-    for photo_filter in grayscale_filters:
+    for photo_filter, photo_name in grayscale_filters:
         image = Image.open("chameleon.jpg")
-        Filterizer.apply(image, photo_filter[0])
-        image.save(f"filterized/grayscale/{photo_filter[1]}.jpg")
+        Filterizer.apply(image, photo_filter)
+        image.save(f"filterized/grayscale/{photo_name}.jpg")
